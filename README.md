@@ -2,6 +2,9 @@
 
 一个基于命运的决策工具，让命运决定你的选择。
 
+🔗 **GitHub 仓库**: [https://github.com/SpiritMark/zuoshi-action](https://github.com/SpiritMark/zuoshi-action)
+
+
 ## 项目结构
 
 ```
@@ -26,7 +29,19 @@ npm run dev
 
 ## 部署到 Vercel
 
-### 方式一：使用 Vercel CLI（推荐）
+### 方式一：使用 GitHub 集成（推荐，已完成代码推送）
+
+✅ **代码已推送到 GitHub**: [https://github.com/SpiritMark/zuoshi-action](https://github.com/SpiritMark/zuoshi-action)
+
+**部署步骤**:
+1. 访问 [vercel.com](https://vercel.com) 并登录
+2. 点击 "Import Project"
+3. 选择 "Import Git Repository"
+4. 连接你的 GitHub 账号并选择 `zuoshi-action` 仓库
+5. Vercel 会自动检测这是一个静态站点并进行部署
+6. 部署完成后，你将获得一个公开访问的 URL
+
+### 方式二：使用 Vercel CLI
 
 1. **登录 Vercel**
    ```bash
@@ -42,12 +57,6 @@ npm run dev
    ```bash
    vercel domain add your-domain.com
    ```
-
-### 方式二：使用 GitHub 集成
-
-1. 将项目推送到 GitHub 仓库
-2. 在 Vercel 控制台中连接 GitHub 仓库
-3. 自动部署
 
 ### 方式三：手动上传
 
