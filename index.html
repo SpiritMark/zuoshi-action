@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>做事行动器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* 背景动画 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.15) 0%, transparent 50%);
+            animation: backgroundFloat 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% { opacity: 1; transform: translateY(0px) rotate(0deg); }
+            50% { opacity: 0.8; transform: translateY(-10px) rotate(1deg); }
+        }
+
+        .glass-morphism {
+            backdrop-filter: blur(25px) saturate(200%);
+            -webkit-backdrop-filter: blur(25px) saturate(200%);
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-morphism::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.8s;
+        }
+
+        .glass-morphism:hover::before {
+            left: 100%;
+        }
+
+        .shadow-glow {
+            box-shadow: 
+                0 8px 32px rgba(0, 123, 255, 0.2),
+                0 2px 16px rgba(0, 123, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .hover-lift {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 20px 60px rgba(0, 123, 255, 0.3),
+                0 8px 32px rgba(0, 123, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .hover-lift:active {
+            transform: translateY(-2px) scale(0.98);
+            transition: all 0.1s ease;
+        }
+
+        .pulse-glow {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 
+                    0 8px 32px rgba(0, 123, 255, 0.2),
+                    0 2px 16px rgba(0, 123, 255, 0.1);
+            }
+            50% {
+                box-shadow: 
+                    0 12px 48px rgba(0, 123, 255, 0.4),
+                    0 4px 24px rgba(0, 123, 255, 0.2);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* 时间显示优化 */
+        .time-container {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .time-container:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
+            transform: translateY(-2px);
+        }
+
+        /* 按钮样式优化 */
+        .main-button {
+            position: relative;
+            background: linear-gradient(135deg, #007BFF 0%, #0056b3 50%, #004085 100%);
+            border: none;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .main-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .main-button:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* 结果容器优化 */
+        .result-container {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .result-icon {
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            transition: all 0.3s ease;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+        }
+
+        .result-icon:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .result-text-bg {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5));
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .result-text-bg:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
+        }
+
+        /* 响应式优化 */
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 1rem;
+            }
+            
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .time-display {
+                font-size: 1rem;
+            }
+        }
+
+        /* 滚动条优化 */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #007BFF, #0056b3);
+            border-radius: 3px;
+        }
+
+        /* 选择文本样式 */
+        ::selection {
+            background: rgba(0, 123, 255, 0.2);
+            color: #333;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 flex items-center justify-center p-8">
+    <div class="main-container w-full max-w-md">
+        <!-- 时间显示区域 -->
+        <div class="text-right mb-4">
+            <div class="time-container glass-morphism rounded-lg px-4 py-2 inline-block">
+                <p class="text-gray-700 text-sm font-medium">
+                    <span class="mr-2">🕐</span>
+                    <span>北京时间</span>
+                </p>
+                <p id="beijingTime" class="time-display text-blue-600 font-mono text-lg font-semibold">
+                    --:--:--
+                </p>
+            </div>
+        </div>
+
+        <!-- 标题区域 -->
+        <div class="text-center mb-12">
+            <h1 class="main-title text-4xl font-light text-gray-800 mb-2 tracking-wide">做事行动器</h1>
+            <p class="text-gray-600 text-sm">让命运决定你的选择</p>
+        </div>
+
+        <!-- 主要按钮 -->
+        <div class="mb-8">
+            <button
+                id="decisionButton"
+                class="main-button w-full glass-morphism shadow-glow hover-lift pulse-glow py-6 px-8 rounded-2xl border-0 text-white font-medium text-lg cursor-pointer select-none"
+                onclick="makeDecision()"
+            >
+                <span class="flex items-center justify-center relative z-10">
+                    <span class="mr-3">🎲</span>
+                    告诉我该怎么做
+                </span>
+            </button>
+        </div>
+
+        <!-- 结果显示区域 -->
+        <div id="resultContainer" class="fade-in">
+            <div class="result-container glass-morphism rounded-2xl p-8 text-center">
+                <div class="mb-4">
+                    <div class="result-icon w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-2xl">
+                        <span id="resultIcon">✨</span>
+                    </div>
+                    <h2 class="text-2xl font-light text-gray-800 mb-2">命运的指引</h2>
+                </div>
+                <div class="result-text-bg rounded-xl p-6">
+                    <p id="resultText" class="text-xl font-medium text-gray-700 leading-relaxed">
+                        点击按钮，聆听命运的安排
+                    </p>
+                </div>
+                <div class="mt-6">
+                    <button
+                        id="retryButton"
+                        class="glass-morphism shadow-glow hover-lift px-6 py-3 rounded-xl text-blue-600 font-medium cursor-pointer border-0"
+                        style="background: rgba(255, 255, 255, 0.3);"
+                        onclick="retry()"
+                    >
+                        重新决定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const decisions = [
+            {
+                text: "去做！现在就是行动的最佳时机，机会稍纵即逝。",
+                icon: "🚀"
+            },
+            {
+                text: "去做！你的直觉是正确的，跟随内心的指引。",
+                icon: "💫"
+            },
+            {
+                text: "不做。有时候说不也是一种智慧的选择。",
+                icon: "🧠"
+            },
+            
+        ];
+
+        function makeDecision() {
+            const randomIndex = Math.floor(Math.random() * decisions.length);
+            const decision = decisions[randomIndex];
+
+            const resultText = document.getElementById('resultText');
+            const resultIcon = document.getElementById('resultIcon');
+            const resultContainer = document.getElementById('resultContainer');
+
+            resultText.textContent = decision.text;
+            resultIcon.textContent = decision.icon;
+            resultContainer.classList.add('show');
+
+            // 按钮动画效果
+            const button = document.getElementById('decisionButton');
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 150);
+        }
+
+        function retry() {
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.classList.remove('show');
+
+            setTimeout(() => {
+                const resultText = document.getElementById('resultText');
+                const resultIcon = document.getElementById('resultIcon');
+                resultText.textContent = "点击按钮，聆听命运的安排";
+                resultIcon.textContent = "✨";
+            }, 300);
+        }
+
+        // 北京时间显示功能
+        function updateBeijingTime() {
+            const now = new Date();
+            // 获取北京时间 (UTC+8)
+            const beijingTime = new Date(now.getTime() + (8 * 60 * 60 * 1000) + (now.getTimezoneOffset() * 60 * 1000));
+            
+            const hours = beijingTime.getHours().toString().padStart(2, '0');
+            const minutes = beijingTime.getMinutes().toString().padStart(2, '0');
+            const seconds = beijingTime.getSeconds().toString().padStart(2, '0');
+            
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('beijingTime').textContent = timeString;
+        }
+
+        // 初始化时间显示并每秒更新
+        updateBeijingTime();
+        setInterval(updateBeijingTime, 1000);
+
+        // 初始化隐藏结果容器
+        document.getElementById('resultContainer').classList.remove('show');
+    </script>
+</body>
+</html>
