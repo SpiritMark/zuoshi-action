@@ -637,6 +637,324 @@
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
         }
+
+        /* 按钮loading状态 */
+        .button-loading {
+            position: relative;
+            pointer-events: none;
+            opacity: 0.95;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+            box-shadow: 
+                0 12px 40px rgba(59, 130, 246, 0.4),
+                0 4px 20px rgba(59, 130, 246, 0.2),
+                0 1px 0 rgba(255, 255, 255, 0.3) inset,
+                0 -1px 0 rgba(29, 78, 216, 0.5) inset;
+            transform: scale(0.98);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .button-loading::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.3) 20%, 
+                rgba(255, 255, 255, 0.5) 50%, 
+                rgba(255, 255, 255, 0.3) 80%, 
+                transparent 100%);
+            animation: buttonShimmer 2.5s ease-in-out infinite;
+            border-radius: inherit;
+        }
+
+        .button-loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 28px;
+            height: 28px;
+            margin: -14px 0 0 -14px;
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            border-top: 3px solid rgba(255, 255, 255, 0.9);
+            border-right: 3px solid rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+        }
+
+        @keyframes spin {
+            0% { 
+                transform: rotate(0deg) scale(1); 
+                filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+            }
+            25% { 
+                transform: rotate(90deg) scale(1.05); 
+                filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.5));
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.1); 
+                filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.7));
+            }
+            75% { 
+                transform: rotate(270deg) scale(1.05); 
+                filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.5));
+            }
+            100% { 
+                transform: rotate(360deg) scale(1); 
+                filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+            }
+        }
+
+        @keyframes buttonShimmer {
+            0% { left: -100%; opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { left: 100%; opacity: 0; }
+        }
+
+        /* 结果区域loading状态 */
+        .result-loading {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.98) 0%, 
+                rgba(248, 250, 252, 0.95) 30%, 
+                rgba(241, 245, 249, 0.92) 70%, 
+                rgba(226, 232, 240, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .result-loading::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(59, 130, 246, 0.1) 20%, 
+                rgba(99, 102, 241, 0.25) 40%, 
+                rgba(147, 51, 234, 0.3) 50%, 
+                rgba(99, 102, 241, 0.25) 60%, 
+                rgba(59, 130, 246, 0.1) 80%, 
+                transparent 100%);
+            animation: loadingSweep 3s ease-in-out infinite;
+            filter: blur(1px);
+        }
+
+        .result-loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.04) 0%, transparent 70%);
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes loadingSweep {
+            0% { 
+                left: -100%; 
+                opacity: 0; 
+                transform: scaleX(0.8);
+            }
+            15% { 
+                opacity: 1; 
+                transform: scaleX(1);
+            }
+            85% { 
+                opacity: 1; 
+                transform: scaleX(1);
+            }
+            100% { 
+                left: 100%; 
+                opacity: 0; 
+                transform: scaleX(0.8);
+            }
+        }
+
+        /* 思考中动画 */
+        .thinking-dots {
+            display: inline-block;
+            position: relative;
+        }
+
+        .thinking-dots::after {
+            content: '';
+            animation: thinkingDots 2s infinite;
+        }
+
+        @keyframes thinkingDots {
+            0%, 15% { content: ''; }
+            25% { content: '.'; }
+            35% { content: '..'; }
+            45% { content: '...'; }
+            55%, 100% { content: '...'; }
+        }
+
+        /* 思考文本动画 */
+        .thinking-text {
+            animation: thinkingPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes thinkingPulse {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        /* 进度指示器 */
+        .progress-indicator {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+            border-radius: 0 0 16px 16px;
+            animation: progressFill 4s ease-out forwards;
+        }
+
+        @keyframes progressFill {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* 思考图标增强动画 */
+        .thinking-icon {
+            animation: thinkingFloat 2.5s ease-in-out infinite, thinkingGlow 2.5s ease-in-out infinite, thinkingPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes thinkingFloat {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg) scale(1);
+            }
+            25% { 
+                transform: translateY(-4px) rotate(2deg) scale(1.05);
+            }
+            50% { 
+                transform: translateY(-8px) rotate(5deg) scale(1.1);
+            }
+            75% { 
+                transform: translateY(-4px) rotate(-2deg) scale(1.05);
+            }
+        }
+
+        @keyframes thinkingGlow {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 20px rgba(155, 89, 182, 0.3),
+                    0 0 40px rgba(155, 89, 182, 0.1);
+            }
+            25% { 
+                box-shadow: 
+                    0 0 25px rgba(155, 89, 182, 0.4),
+                    0 0 50px rgba(155, 89, 182, 0.2);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 35px rgba(155, 89, 182, 0.6),
+                    0 0 60px rgba(155, 89, 182, 0.3),
+                    0 0 80px rgba(155, 89, 182, 0.1);
+            }
+            75% { 
+                box-shadow: 
+                    0 0 25px rgba(155, 89, 182, 0.4),
+                    0 0 50px rgba(155, 89, 182, 0.2);
+            }
+        }
+
+        @keyframes thinkingPulse {
+            0%, 100% { 
+                filter: brightness(1) saturate(1);
+            }
+            50% { 
+                filter: brightness(1.2) saturate(1.3);
+            }
+        }
+
+        /* 神秘粒子效果 */
+        .mystical-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, 
+                rgba(59, 130, 246, 0.9) 0%, 
+                rgba(99, 102, 241, 0.6) 30%, 
+                rgba(147, 51, 234, 0.3) 60%, 
+                transparent 100%);
+            border-radius: 50%;
+            animation: particleFloat 4s ease-in-out infinite;
+            filter: blur(0.5px);
+        }
+
+        .particle:nth-child(odd) {
+            background: radial-gradient(circle, 
+                rgba(99, 102, 241, 0.9) 0%, 
+                rgba(147, 51, 234, 0.6) 30%, 
+                rgba(59, 130, 246, 0.3) 60%, 
+                transparent 100%);
+        }
+
+        .particle:nth-child(3n) {
+            background: radial-gradient(circle, 
+                rgba(147, 51, 234, 0.9) 0%, 
+                rgba(59, 130, 246, 0.6) 30%, 
+                rgba(99, 102, 241, 0.3) 60%, 
+                transparent 100%);
+        }
+
+        @keyframes particleFloat {
+            0% { 
+                opacity: 0; 
+                transform: translateY(120px) scale(0) rotate(0deg);
+                filter: blur(2px);
+            }
+            15% { 
+                opacity: 0.8; 
+                transform: translateY(100px) scale(0.5) rotate(45deg);
+                filter: blur(1px);
+            }
+            30% { 
+                opacity: 1; 
+                transform: translateY(80px) scale(1) rotate(90deg);
+                filter: blur(0.5px);
+            }
+            70% { 
+                opacity: 1; 
+                transform: translateY(-10px) scale(1.2) rotate(270deg);
+                filter: blur(0.5px);
+            }
+            85% { 
+                opacity: 0.6; 
+                transform: translateY(-30px) scale(0.8) rotate(315deg);
+                filter: blur(1px);
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateY(-50px) scale(0) rotate(360deg);
+                filter: blur(2px);
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center">
@@ -900,38 +1218,147 @@
         ];
 
         function makeDecision() {
-            const randomIndex = Math.floor(Math.random() * decisions.length);
-            const decision = decisions[randomIndex];
-
+            const button = document.getElementById('decisionButton');
             const resultText = document.getElementById('resultText');
             const resultIcon = document.getElementById('resultIcon');
-            const categoryBadge = document.getElementById('categoryBadge');
-            const categoryText = document.getElementById('categoryText');
             const resultContainer = document.getElementById('resultContainer');
-            const shareButton = document.getElementById('shareButton');
+            
+            // 防止重复点击
+            if (button.classList.contains('button-loading')) {
+                return;
+            }
 
-            resultText.textContent = decision.text;
+            // 设置按钮loading状态
+            button.classList.add('button-loading');
+            button.disabled = true;
             
-            // 设置图标
-            setResultIcon(resultIcon, decision);
-            
-            categoryText.textContent = decision.category;
-            categoryBadge.style.display = 'inline-block';
+            // 显示结果容器并设置loading状态
             resultContainer.classList.add('show');
-            shareButton.style.display = 'inline-block';
+            resultContainer.classList.add('result-loading');
+            
+            // 显示思考中的文本
+            resultText.innerHTML = '<span class="thinking-text">命运正在思考</span><span class="thinking-dots"></span>';
+            
+            // 设置默认思考图标
+            resultIcon.innerHTML = '';
+            resultIcon.className = 'result-icon w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-2xl';
+            const thinkingIcon = document.createElement('i');
+            thinkingIcon.className = 'fas fa-brain thinking-icon';
+            thinkingIcon.style.color = '#9B59B6';
+            thinkingIcon.style.fontSize = '2rem';
+            resultIcon.appendChild(thinkingIcon);
 
-            // 按钮动画效果
-            const button = document.getElementById('decisionButton');
-            button.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                button.style.transform = 'scale(1)';
-            }, 150);
+            // 添加进度指示器
+            const progressIndicator = document.createElement('div');
+            progressIndicator.className = 'progress-indicator';
+            resultContainer.appendChild(progressIndicator);
+
+            // 添加神秘粒子效果
+            createMysticalParticles(resultContainer);
 
             // 播放音效
             playSound('click');
 
-            // 记录历史和统计
-            recordDecision(decision);
+            // 阶段性提示文本
+            const thinkingMessages = [
+                '命运正在思考',
+                '宇宙能量汇聚中',
+                '神秘力量在运作',
+                '时空隧道开启中',
+                '答案即将揭晓'
+            ];
+
+            let currentMessageIndex = 0;
+            const messageInterval = setInterval(() => {
+                if (currentMessageIndex < thinkingMessages.length - 1) {
+                    currentMessageIndex++;
+                    resultText.innerHTML = `<span class="thinking-text">${thinkingMessages[currentMessageIndex]}</span><span class="thinking-dots"></span>`;
+                    
+                    // 为每个阶段添加不同的音效
+                    if (currentMessageIndex === 1) {
+                        playSound('energy');
+                    } else if (currentMessageIndex === 2) {
+                        playSound('mystical');
+                    } else if (currentMessageIndex === 3) {
+                        playSound('portal');
+                    }
+                }
+            }, 1200);
+
+            // 延长思考时间（4-6秒随机延迟）
+            const thinkingTime = 4000 + Math.random() * 2000;
+            
+            setTimeout(() => {
+                // 清除消息切换
+                clearInterval(messageInterval);
+                
+                // 获取随机决策
+                const randomIndex = Math.floor(Math.random() * decisions.length);
+                const decision = decisions[randomIndex];
+
+                const categoryBadge = document.getElementById('categoryBadge');
+                const categoryText = document.getElementById('categoryText');
+                const shareButton = document.getElementById('shareButton');
+
+                // 移除loading状态和进度指示器
+                resultContainer.classList.remove('result-loading');
+                const progressIndicator = resultContainer.querySelector('.progress-indicator');
+                if (progressIndicator) {
+                    progressIndicator.remove();
+                }
+                
+                // 移除粒子效果
+                const particles = resultContainer.querySelector('.mystical-particles');
+                if (particles) {
+                    particles.remove();
+                }
+                
+                // 显示结果
+                resultText.textContent = decision.text;
+                
+                // 设置图标
+                setResultIcon(resultIcon, decision);
+                
+                categoryText.textContent = decision.category;
+                categoryBadge.style.display = 'inline-block';
+                shareButton.style.display = 'inline-block';
+
+                // 恢复按钮状态
+                button.classList.remove('button-loading');
+                button.disabled = false;
+
+                // 按钮动画效果
+                button.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    button.style.transform = 'scale(1)';
+                }, 150);
+
+                // 记录历史和统计
+                recordDecision(decision);
+            }, thinkingTime);
+        }
+
+        function createMysticalParticles(container) {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'mystical-particles';
+            
+            // 创建多个粒子
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 3 + 's';
+                particle.style.animationDuration = (3 + Math.random() * 2) + 's';
+                
+                // 随机大小变化
+                const size = 4 + Math.random() * 4;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            container.appendChild(particlesContainer);
         }
 
         function setResultIcon(iconElement, decision) {
