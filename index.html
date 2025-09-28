@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>做事行动器</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Heroicons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/index.css">
     <style>
         * {
             box-sizing: border-box;
@@ -421,7 +427,7 @@
         <div class="text-right mb-4">
             <div class="time-container glass-morphism rounded-lg px-4 py-2 inline-block">
                 <p class="text-gray-700 text-sm font-medium">
-                    <span class="mr-2">🕐</span>
+                    <i class="fas fa-clock mr-2" style="color: #007BFF; font-size: 0.9rem;"></i>
                     <span>北京时间</span>
                 </p>
                 <p id="beijingTime" class="time-display text-blue-600 font-mono text-lg font-semibold">
@@ -444,7 +450,7 @@
                 onclick="makeDecision()"
             >
                 <span class="flex items-center justify-center relative z-10">
-                    <span class="mr-3">🎲</span>
+                    <i class="fas fa-dice mr-3" style="color: white; font-size: 1.2rem;"></i>
                     告诉我该怎么做
                 </span>
             </button>
@@ -482,7 +488,8 @@
                         style="background: rgba(255, 255, 255, 0.3); display: none;"
                         onclick="shareResult()"
                     >
-                        📱 分享结果
+                        <i class="fas fa-share-alt mr-1" style="font-size: 0.9rem;"></i>
+                        分享结果
                     </button>
                 </div>
 
@@ -490,7 +497,7 @@
                 <div id="historySection" class="mt-6 text-left" style="display: none;">
                     <div class="glass-morphism rounded-xl p-4">
                         <h3 class="text-lg font-medium text-gray-800 mb-3 flex items-center">
-                            <span class="mr-2">📜</span>
+                            <i class="fas fa-scroll mr-2" style="color: #8E44AD; font-size: 1.1rem;"></i>
                             决策历史
                             <span id="historyCount" class="ml-auto text-sm text-gray-600"></span>
                         </h3>
@@ -499,10 +506,11 @@
                         </div>
                         <button
                             id="clearHistoryButton"
-                            class="mt-3 text-xs text-gray-500 hover:text-red-500 transition-colors cursor-pointer"
+                            class="mt-3 text-xs text-gray-500 hover:text-red-500 transition-colors cursor-pointer flex items-center"
                             onclick="clearHistory()"
                         >
-                            🗑️ 清空历史
+                            <i class="fas fa-trash-alt mr-1" style="font-size: 0.75rem;"></i>
+                            清空历史
                         </button>
                     </div>
                 </div>
@@ -511,7 +519,7 @@
                 <div id="statsSection" class="mt-4 text-left" style="display: none;">
                     <div class="glass-morphism rounded-xl p-4">
                         <h3 class="text-lg font-medium text-gray-800 mb-3 flex items-center">
-                            <span class="mr-2">📊</span>
+                            <i class="fas fa-chart-bar mr-2" style="color: #3498DB; font-size: 1.1rem;"></i>
                             决策统计
                         </h3>
                         <div id="statsContent" class="grid grid-cols-2 gap-4 text-sm">
@@ -533,63 +541,143 @@
         const decisions = [
             {
                 text: "去做！现在就是行动的最佳时机，机会稍纵即逝。",
-                icon: "🚀",
+                icon: "fas fa-rocket",
+                iconType: "fontawesome",
+                iconColor: "#FF6B6B",
                 category: "行动派"
             },
             {
                 text: "去做！你的直觉是正确的，跟随内心的指引。",
-                icon: "💫",
+                icon: "fas fa-magic",
+                iconType: "fontawesome",
+                iconColor: "#9B59B6",
                 category: "直觉型"
             },
             {
                 text: "不做。有时候说不也是一种智慧的选择。",
-                icon: "🧠",
+                icon: "fas fa-brain",
+                iconType: "fontawesome",
+                iconColor: "#3498DB",
                 category: "智慧型"
             },
             {
                 text: "去做！生命在于折腾，不试试怎么知道行不行？",
-                icon: "⚡",
+                icon: "fas fa-bolt",
+                iconType: "fontawesome",
+                iconColor: "#F39C12",
                 category: "冒险家"
             },
             {
                 text: "去做！别让明天的自己后悔今天的犹豫。",
-                icon: "🌟",
+                icon: "fas fa-star",
+                iconType: "fontawesome",
+                iconColor: "#FFD700",
                 category: "励志型"
             },
             {
                 text: "不做。欲速则不达，慢慢来比较快。",
-                icon: "🐌",
+                icon: "fas fa-seedling",
+                iconType: "fontawesome",
+                iconColor: "#2ECC71",
                 category: "耐心型"
             },
             {
                 text: "去做！世界那么大，我想去看看。",
-                icon: "🌍",
+                icon: "fas fa-globe-americas",
+                iconType: "fontawesome",
+                iconColor: "#1ABC9C",
                 category: "探索者"
             },
             {
                 text: "去做！机会只留给有准备的人。",
-                icon: "🎯",
+                icon: "fas fa-bullseye",
+                iconType: "fontawesome",
+                iconColor: "#E74C3C",
                 category: "准备型"
             },
             {
                 text: "不做。休息是为了走更远的路。",
-                icon: "😴",
+                icon: "fas fa-bed",
+                iconType: "fontawesome",
+                iconColor: "#95A5A6",
                 category: "休息型"
             },
             {
                 text: "去做！人生苦短，及时行乐。",
-                icon: "🎉",
+                icon: "fas fa-party-horn",
+                iconType: "fontawesome",
+                iconColor: "#E67E22",
                 category: "享乐型"
             },
             {
                 text: "去做！挑战不可能，创造新可能。",
-                icon: "💪",
+                icon: "fas fa-dumbbell",
+                iconType: "fontawesome",
+                iconColor: "#8E44AD",
                 category: "挑战者"
             },
             {
                 text: "不做。有时候，退一步海阔天空。",
-                icon: "🌊",
+                icon: "fas fa-water",
+                iconType: "fontawesome",
+                iconColor: "#3498DB",
                 category: "哲思型"
+            },
+            {
+                text: "去做！梦想需要行动来实现，否则只是空想。",
+                icon: "fas fa-moon",
+                iconType: "fontawesome",
+                iconColor: "#34495E",
+                category: "梦想家"
+            },
+            {
+                text: "去做！改变从现在开始，每一步都算数。",
+                icon: "fas fa-sync-alt",
+                iconType: "fontawesome",
+                iconColor: "#16A085",
+                category: "变革者"
+            },
+            {
+                text: "不做。倾听内心的声音，它知道最好的路。",
+                icon: "fas fa-heart",
+                iconType: "fontawesome",
+                iconColor: "#E91E63",
+                category: "倾听者"
+            },
+            {
+                text: "去做！越努力，越幸运，命运青睐有准备的人。",
+                icon: "fas fa-clover",
+                iconType: "fontawesome",
+                iconColor: "#27AE60",
+                category: "幸运儿"
+            },
+            {
+                text: "去做！人生没有彩排，每一天都是现场直播。",
+                icon: "fas fa-video",
+                iconType: "fontawesome",
+                iconColor: "#9B59B6",
+                category: "演员型"
+            },
+            {
+                text: "不做。学会拒绝，是成熟的开始。",
+                icon: "fas fa-hand-paper",
+                iconType: "fontawesome",
+                iconColor: "#E74C3C",
+                category: "自律型"
+            },
+            {
+                text: "去做！所有的伟大成就，都是从行动开始的。",
+                icon: "fas fa-trophy",
+                iconType: "fontawesome",
+                iconColor: "#F1C40F",
+                category: "成就者"
+            },
+            {
+                text: "去做！时间是有限的，不要为别人而活。",
+                icon: "fas fa-clock",
+                iconType: "fontawesome",
+                iconColor: "#FF6B6B",
+                category: "时间管理"
             }
         ];
 
@@ -605,7 +693,10 @@
             const shareButton = document.getElementById('shareButton');
 
             resultText.textContent = decision.text;
-            resultIcon.textContent = decision.icon;
+            
+            // 设置图标
+            setResultIcon(resultIcon, decision);
+            
             categoryText.textContent = decision.category;
             categoryBadge.style.display = 'inline-block';
             resultContainer.classList.add('show');
@@ -625,6 +716,34 @@
             recordDecision(decision);
         }
 
+        function setResultIcon(iconElement, decision) {
+            // 清空现有内容
+            iconElement.innerHTML = '';
+            iconElement.className = 'result-icon w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-2xl';
+
+            if (decision.iconType === 'fontawesome') {
+                const icon = document.createElement('i');
+                icon.className = decision.icon;
+                icon.style.color = decision.iconColor;
+                icon.style.fontSize = '2rem';
+                iconElement.appendChild(icon);
+            } else if (decision.iconType === 'lucide') {
+                const icon = document.createElement('i');
+                icon.setAttribute('data-lucide', decision.icon);
+                icon.style.color = decision.iconColor;
+                icon.style.width = '2rem';
+                icon.style.height = '2rem';
+                iconElement.appendChild(icon);
+                // 初始化 Lucide 图标
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            } else {
+                // 默认使用文本图标
+                iconElement.textContent = decision.icon;
+            }
+        }
+
         function retry() {
             const resultContainer = document.getElementById('resultContainer');
             const shareButton = document.getElementById('shareButton');
@@ -641,7 +760,15 @@
                 const resultText = document.getElementById('resultText');
                 const resultIcon = document.getElementById('resultIcon');
                 resultText.textContent = "点击按钮，聆听命运的安排";
-                resultIcon.textContent = "✨";
+                
+                // 重置图标为默认状态
+                resultIcon.innerHTML = '';
+                resultIcon.className = 'result-icon w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-2xl';
+                const defaultIcon = document.createElement('i');
+                defaultIcon.className = 'fas fa-magic';
+                defaultIcon.style.color = '#9B59B6';
+                defaultIcon.style.fontSize = '2rem';
+                resultIcon.appendChild(defaultIcon);
             }, 300);
         }
 
@@ -650,6 +777,8 @@
             const record = {
                 text: decision.text,
                 icon: decision.icon,
+                iconType: decision.iconType,
+                iconColor: decision.iconColor,
                 category: decision.category,
                 timestamp: timestamp
             };
@@ -679,13 +808,17 @@
             if (decisionHistory.length > 0) {
                 historySection.style.display = 'block';
                 historyCount.textContent = `(${decisionHistory.length})`;
-                historyList.innerHTML = decisionHistory.slice(0, 5).map(record =>
-                    `<div class="text-sm text-gray-600 flex items-center">
-                        <span class="mr-2">${record.icon}</span>
+                historyList.innerHTML = decisionHistory.slice(0, 5).map(record => {
+                    const iconHtml = record.iconType === 'fontawesome' 
+                        ? `<i class="${record.icon}" style="color: ${record.iconColor}; font-size: 1rem; width: 16px; text-align: center;"></i>`
+                        : `<span style="font-size: 1rem;">${record.icon}</span>`;
+                    
+                    return `<div class="text-sm text-gray-600 flex items-center">
+                        <span class="mr-2">${iconHtml}</span>
                         <span class="flex-1 truncate">${record.text}</span>
                         <span class="text-xs text-gray-400 ml-2">${record.timestamp.split(' ')[1]}</span>
-                    </div>`
-                ).join('');
+                    </div>`;
+                }).join('');
             }
         }
 
@@ -731,9 +864,17 @@
 
         function shareResult() {
             const resultText = document.getElementById('resultText').textContent;
-            const resultIcon = document.getElementById('resultIcon').textContent;
+            const resultIconElement = document.getElementById('resultIcon');
+            
+            // 获取当前决策的图标（用于分享）
+            let iconText = '✨'; // 默认图标
+            if (resultIconElement.querySelector('i')) {
+                // 如果是Font Awesome图标，使用对应的emoji
+                const iconClass = resultIconElement.querySelector('i').className;
+                iconText = getEmojiFromFontAwesome(iconClass);
+            }
 
-            const shareText = `🧙‍♂️ 命运告诉我：${resultIcon} ${resultText}\n\n来自「做事行动器」- 让命运决定你的选择！`;
+            const shareText = `🧙‍♂️ 命运告诉我：${iconText} ${resultText}\n\n来自「做事行动器」- 让命运决定你的选择！`;
 
             if (navigator.share) {
                 navigator.share({
@@ -752,6 +893,32 @@
             }
 
             playSound('share');
+        }
+
+        function getEmojiFromFontAwesome(iconClass) {
+            const iconMap = {
+                'fas fa-rocket': '🚀',
+                'fas fa-magic': '✨',
+                'fas fa-brain': '🧠',
+                'fas fa-bolt': '⚡',
+                'fas fa-star': '⭐',
+                'fas fa-seedling': '🌱',
+                'fas fa-globe-americas': '🌍',
+                'fas fa-bullseye': '🎯',
+                'fas fa-bed': '🛏️',
+                'fas fa-party-horn': '🎉',
+                'fas fa-dumbbell': '💪',
+                'fas fa-water': '🌊',
+                'fas fa-moon': '🌙',
+                'fas fa-sync-alt': '🔄',
+                'fas fa-heart': '❤️',
+                'fas fa-clover': '🍀',
+                'fas fa-video': '🎬',
+                'fas fa-hand-paper': '✋',
+                'fas fa-trophy': '🏆',
+                'fas fa-clock': '⏰'
+            };
+            return iconMap[iconClass] || '✨';
         }
 
         function clearHistory() {
